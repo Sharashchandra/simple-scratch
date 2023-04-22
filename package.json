@@ -1,0 +1,69 @@
+{
+  "name": "simple-scratch",
+  "displayName": "simple_scratch",
+  "description": "A simple vscode extension to manage scratch files in the current workspace",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "simple-scratch.newScratch",
+        "category": "Simple Scratch",
+        "title": "New Scratch"
+      },
+      {
+        "command": "simple-scratch.openScratch",
+        "category": "Simple Scratch",
+        "title": "Open Scratch"
+      },
+      {
+        "command": "simple-scratch.deleteScratch",
+        "category": "Simple Scratch",
+        "title": "Delete Scratch"
+      },
+      {
+        "command": "simple-scratch.bulkDeleteScratch",
+        "category": "Simple Scratch",
+        "title": "Bulk Delete Scratch"
+      }
+    ],
+    "configuration": {
+      "title": "Simple Scratch",
+      "properties": {
+        "simple-scratch.scratchFolderName": {
+          "type": "string",
+          "default": "scratch",
+          "description": "The name of the folder which contains the scratch files"
+        },
+        "simple-scratch.defaultScratchFileName": {
+          "type": "string",
+          "default": "scratch",
+          "description": "The default file name of the scratch files"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.77.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5",
+    "@vscode/test-electron": "^2.3.0"
+  }
+}
