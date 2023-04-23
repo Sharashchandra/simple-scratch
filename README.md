@@ -41,6 +41,9 @@ This extension contributes the following settings:
 * `simple-scratch.defaultGlobalScratchFileName`: Base name of the scratch file globally.
 > *scratch* is the default value
 
+## Known Issues
+
+* Not all languages are supported on Windows
 
 ## Release Notes
 
