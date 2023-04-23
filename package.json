@@ -2,7 +2,7 @@
   "name": "simple-scratch",
   "displayName": "simple_scratch",
   "description": "A simple vscode extension to manage scratch files in the current workspace",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.77.0"
   },
