@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const newScratch = require("./newScratch.js");
+const createScratch = require("./createScratch.js");
 const modifyScratch = require("./modifyScratch.js");
 
 /**
@@ -11,27 +11,29 @@ function activate(context) {
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand("simple-scratch.newScratch", newScratch)
-  );
-
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "simple-scratch.openScratch",
-      modifyScratch.openScratch
+    vscode.commands.registerCommand("simple-scratch.newScratch", async () =>
+      new createScratch.CreateScratch().newScratch()
     )
   );
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "simple-scratch.deleteScratch",
-      modifyScratch.deleteScratch
+    vscode.commands.registerCommand("simple-scratch.openScratch", async () =>
+      new modifyScratch.OpenScratch().openScratch()
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("simple-scratch.deleteScratch", async () =>
+      new modifyScratch.DeleteScratch().deleteScratch({
+        isBulkDelete: false,
+      })
     )
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "simple-scratch.bulkDeleteScratch",
-      modifyScratch.bulkDeleteScratch
+      async () => new modifyScratch.DeleteScratch().bulkDeleteScratch()
     )
   );
 }
