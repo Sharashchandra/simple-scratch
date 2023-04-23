@@ -1,5 +1,6 @@
 const vscode = require("vscode");
 const utils = require("./utils.js");
+const constants = require("./constants.js");
 
 class CreateScratch {
   constructor() {
@@ -33,6 +34,10 @@ class CreateScratch {
     const defaultFileName = await utils.getDefaultFileName(); // Need to modify
     let scratchFileName = await vscode.window.showInputBox({
       placeHolder: `${defaultFileName}${fileExtension} (default)`,
+      validateInput: text => {
+        const re = new RegExp(constants.VALID_FILENAME_REGEX);
+        return re.test(text) ? null : "Invalid filename"
+      }
     });
     if (scratchFileName === undefined) {
       return;
