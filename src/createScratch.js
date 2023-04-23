@@ -3,13 +3,14 @@ const utils = require("./utils.js");
 const constants = require("./constants.js");
 
 class CreateScratch {
-  constructor() {
+  constructor({context}) {
     this._scratchUri = undefined;
+    this.context = context;
   }
 
   async getScratchUri() {
     if (this._scratchUri === undefined) {
-      this._scratchUri = await utils.getScratchPath();
+      this._scratchUri = await utils.getScratchPath({context: this.context});
       return this._scratchUri;
     }
     return this._scratchUri;
@@ -36,7 +37,7 @@ class CreateScratch {
       placeHolder: `${defaultFileName}${fileExtension} (default)`,
       validateInput: text => {
         const re = new RegExp(constants.VALID_FILENAME_REGEX);
-        return re.test(text) ? null : "Invalid filename"
+        return text === "" || re.test(text) ? null : "Invalid filename"
       }
     });
     if (scratchFileName === undefined) {

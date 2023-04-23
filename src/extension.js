@@ -12,19 +12,19 @@ function activate(context) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand("simple-scratch.newScratch", async () =>
-      new createScratch.CreateScratch().newScratch()
+      new createScratch.CreateScratch({ context: context }).newScratch()
     )
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand("simple-scratch.openScratch", async () =>
-      new modifyScratch.OpenScratch().openScratch()
+      new modifyScratch.OpenScratch({ context: context }).openScratch()
     )
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand("simple-scratch.deleteScratch", async () =>
-      new modifyScratch.DeleteScratch().deleteScratch({
+      new modifyScratch.DeleteScratch({ context: context }).deleteScratch({
         isBulkDelete: false,
       })
     )
@@ -33,7 +33,10 @@ function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "simple-scratch.bulkDeleteScratch",
-      async () => new modifyScratch.DeleteScratch().bulkDeleteScratch()
+      async () =>
+        new modifyScratch.DeleteScratch({
+          context: context,
+        }).bulkDeleteScratch()
     )
   );
 }

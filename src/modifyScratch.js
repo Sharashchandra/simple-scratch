@@ -2,13 +2,14 @@ const vscode = require("vscode");
 const utils = require("./utils.js");
 
 class ModifyScratch {
-  constructor() {
+  constructor({ context }) {
     this._scratchUri = undefined;
+    this.context = context;
   }
 
   async getScratchUri() {
     if (this._scratchUri === undefined) {
-      this._scratchUri = await utils.getScratchPath();
+      this._scratchUri = await utils.getScratchPath({ context: this.context });
       return this._scratchUri;
     }
     return this._scratchUri;
@@ -22,13 +23,13 @@ class ModifyScratch {
       });
     } catch (err) {
       vscode.window.showErrorMessage(
-        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName value"
+        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
       );
       return;
     }
     if (!allFiles || allFiles.length == 0) {
       vscode.window.showErrorMessage(
-        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName value"
+        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
       );
       return;
     }
@@ -65,6 +66,10 @@ class ModifyScratch {
 }
 
 class OpenScratch extends ModifyScratch {
+  constructor({ context }) {
+    super({ context: context });
+  }
+
   async openScratch() {
     let fileUris = await super.getTargetFileUris({
       allowMultipleSelect: false,
@@ -79,6 +84,10 @@ class OpenScratch extends ModifyScratch {
 }
 
 class DeleteScratch extends ModifyScratch {
+  constructor({ context }) {
+    super({ context: context });
+  }
+
   async deleteScratch({ isBulkDelete }) {
     let fileUris = await super.getTargetFileUris({
       allowMultipleSelect: isBulkDelete,

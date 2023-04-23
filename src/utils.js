@@ -28,8 +28,8 @@ async function getWorkspaceRoot() {
   }
 }
 
-function getGlobalFolderPath() {
-  return vscode.env.appRoot;
+function getGlobalFolderPath({ context }) {
+  return context.globalStorageUri.path.toString();
 }
 
 // Get Scratch File/Folder Names
@@ -59,7 +59,7 @@ async function getDefaultFileName() {
   return defaultFileName;
 }
 
-function getScratchFolderName(global = false) {
+function getScratchFolderName({ global }) {
   let config = getConfiguration();
   let scratchFolderName;
   if (global) {
@@ -80,21 +80,21 @@ function getScratchFolderName(global = false) {
 // Get full scratch paths
 async function getWorkspaceScratchPath() {
   let workspaceRoot = await getWorkspaceRoot();
-  let scratchFolderName = getScratchFolderName();
+  let scratchFolderName = getScratchFolderName({ global: false });
   let scratchUri = vscode.Uri.parse(`${workspaceRoot}/${scratchFolderName}`);
   console.log(`Scratch Uri: ${scratchUri.path.toString()}`);
   return scratchUri;
 }
 
-function getGlobalScratchPath() {
-  let globalFolderPath = getGlobalFolderPath();
-  let scratchFolderName = getScratchFolderName(true);
+function getGlobalScratchPath({ context }) {
+  let globalFolderPath = getGlobalFolderPath({ context: context });
+  let scratchFolderName = getScratchFolderName({ global: true });
   let scratchUri = vscode.Uri.parse(`${globalFolderPath}/${scratchFolderName}`);
   console.log(`Scratch Uri: ${scratchUri.path.toString()}`);
   return scratchUri;
 }
 
-async function getScratchPath() {
+async function getScratchPath({ context }) {
   const isGlobalEnabled = await checkIfGlobalScratchEnabled();
   if (!isGlobalEnabled) {
     return await getWorkspaceScratchPath();
@@ -108,7 +108,7 @@ async function getScratchPath() {
   } else if (location === "workspace") {
     return await getWorkspaceScratchPath();
   } else {
-    return getGlobalScratchPath();
+    return getGlobalScratchPath({ context: context });
   }
 }
 
@@ -144,7 +144,7 @@ async function checkIfFileExists(uri) {
 }
 
 // Util to open file
-async function openFile({filePath, isNewFile = false}) {
+async function openFile({ filePath, isNewFile = false }) {
   console.log(`Opening file: ${filePath}`);
   let document;
   if (isNewFile) {
