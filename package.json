@@ -2,7 +2,7 @@
   "name": "simple-scratch",
   "displayName": "simple_scratch",
   "description": "A simple vscode extension to manage scratch files in the current workspace",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.77.0"
   },
@@ -46,6 +46,21 @@
           "type": "string",
           "default": "scratch",
           "description": "The default file name of the scratch files"
+        },
+        "simple-scratch.enableGlobalScratch": {
+          "type": "boolean",
+          "default": false,
+          "description": "Toggle to enable/disable global scratch files"
+        },
+        "simple-scratch.globalScratchFolderName": {
+          "type": "string",
+          "default": "scratch",
+          "description": "The name of the folder which contains the global scratch files"
+        },
+        "simple-scratch.defaultGlobalScratchFileName": {
+          "type": "string",
+          "default": "scratch",
+          "description": "The default file name of the global scratch files"
         }
       }
     }
