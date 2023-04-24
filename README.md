@@ -50,3 +50,8 @@ This extension contributes the following settings:
 ### 1.0.0
 
 Initial release of Simple Scratch extension
+
+### 1.0.1
+
+Fixed issue [#4](https://github.com/Sharashchandra/simple-scratch/issues/4)  
+Fixed the issue where the supported languages list on Windows only included a few languages.
