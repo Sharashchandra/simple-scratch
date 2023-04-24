@@ -55,3 +55,7 @@ Initial release of Simple Scratch extension
 
 Fixed issue [#4](https://github.com/Sharashchandra/simple-scratch/issues/4)  
 Fixed the issue where the supported languages list on Windows only included a few languages.
+
+### 1.0.2
+
+Changed extension display name from `simple_scratch` to `Simple Scratch`.

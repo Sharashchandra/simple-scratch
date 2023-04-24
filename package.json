@@ -1,8 +1,8 @@
 {
   "name": "simple-scratch",
-  "displayName": "simple_scratch",
+  "displayName": "Simple Scratch",
   "description": "A simple vscode extension to manage scratch files in the current workspace",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "SharashchandraDesai",
   "engines": {
     "vscode": "^1.77.0"
