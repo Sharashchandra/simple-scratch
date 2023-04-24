@@ -1,5 +1,6 @@
 const vscode = require("vscode");
 const constants = require("./constants.js");
+let languageMap = require("language-map");
 
 // Get Configuration
 function getConfiguration() {
@@ -51,7 +52,7 @@ async function getDefaultFileName() {
   let allFiles;
   try {
     allFiles = await listFiles();
-  } catch (err) {}
+  } catch (err) { }
   if (allFiles !== undefined && allFiles.length > 0) {
     defaultFileName = `${defaultFileName}${allFiles.length.toString()}`;
   }
@@ -113,22 +114,16 @@ async function getScratchPath({ context }) {
 }
 
 // Get all supported languages with extension in vscode
-async function getAllSupportedFileExtensions() {
-  const extensions = await vscode.extensions.all;
-  const fileExtensions = {};
-
-  for (const extension of extensions) {
-    const contributes = extension.packageJSON.contributes;
-    if (contributes && Array.isArray(contributes.languages)) {
-      for (const language of contributes.languages) {
-        if (Array.isArray(language.extensions)) {
-          fileExtensions[language.id] = language.extensions[0];
-        }
-      }
+async function getLanguageMap() {
+  let allSupportedLanguages = {};
+  for (const [name, data] of Object.entries(languageMap)) {
+    if (data.extensions) {
+      let fileExtension = data.extensions[0];
+      let displayName = `${name} (${fileExtension})`;
+      allSupportedLanguages[displayName] = fileExtension;
     }
   }
-
-  return fileExtensions;
+  return allSupportedLanguages;
 }
 
 // File exists check
@@ -175,7 +170,7 @@ module.exports = {
   getScratchPath,
   checkIfFileExists,
   openFile,
-  getAllSupportedFileExtensions,
+  getLanguageMap,
   getDefaultFileName,
-  listFiles,
+  listFiles
 };
