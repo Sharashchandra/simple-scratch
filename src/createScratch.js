@@ -23,7 +23,7 @@ class CreateScratch {
   }
 
   async getFileExtension() {
-    const allExtensions = await utils.getAllSupportedFileExtensions();
+    const allExtensions = await utils.getLanguageMap();
     const selectedExtension = await vscode.window.showQuickPick(
       Object.keys(allExtensions),
       { placeHolder: "Select file extension" }
