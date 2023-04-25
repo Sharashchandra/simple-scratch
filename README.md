@@ -59,3 +59,7 @@ Fixed the issue where the supported languages list on Windows only included a fe
 ### 1.0.2
 
 Changed extension display name from `simple_scratch` to `Simple Scratch`.
+
+### 1.0.3
+
+Changed min vscode version required to 1.75.0
