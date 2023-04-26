@@ -35,31 +35,10 @@ This extension contributes the following settings:
 * `simple-scratch.defaultScratchFileName`: Base name of the scratch file in the current workspace.
 > *scratch* is the default value
 * `simple-scratch.enableGlobalScratch`: Enable/disable global scratch files.
-> *scratch* is the default valuefiles.
+> *true* is the default valuefiles.
 * `simple-scratch.globalScratchFolderName`: Name of the scratch folder globally.
 > *scratch* is the default value
 * `simple-scratch.defaultGlobalScratchFileName`: Base name of the scratch file globally.
 > *scratch* is the default value
-
-## Known Issues
-
-* Not all languages are supported on Windows
-
-## Release Notes
-
-### 1.0.0
-
-Initial release of Simple Scratch extension
-
-### 1.0.1
-
-Fixed issue [#4](https://github.com/Sharashchandra/simple-scratch/issues/4)  
-Fixed the issue where the supported languages list on Windows only included a few languages.
-
-### 1.0.2
-
-Changed extension display name from `simple_scratch` to `Simple Scratch`.
-
-### 1.0.3
-
-Changed min vscode version required to 1.75.0
+* `simple-scratch.enableAutoPaste`: Enable/disable auto paste clipboard content.
+> *true* is the default value

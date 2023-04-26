@@ -3,14 +3,14 @@ const utils = require("./utils.js");
 const constants = require("./constants.js");
 
 class CreateScratch {
-  constructor({context}) {
+  constructor({ context }) {
     this._scratchUri = undefined;
     this.context = context;
   }
 
   async getScratchUri() {
     if (this._scratchUri === undefined) {
-      this._scratchUri = await utils.getScratchPath({context: this.context});
+      this._scratchUri = await utils.getScratchPath({ context: this.context });
       return this._scratchUri;
     }
     return this._scratchUri;
@@ -32,7 +32,8 @@ class CreateScratch {
   }
 
   async getFileName({ fileExtension }) {
-    const defaultFileName = await utils.getDefaultFileName(); // Need to modify
+    const scratchUri = await this.getScratchUri()
+    const defaultFileName = await utils.getDefaultFileName({ scratchUri: scratchUri });
     let scratchFileName = await vscode.window.showInputBox({
       placeHolder: `${defaultFileName}${fileExtension} (default)`,
       validateInput: text => {
@@ -58,7 +59,8 @@ class CreateScratch {
       );
       return;
     } else {
-      vscode.workspace.fs.writeFile(fileUri, new Uint8Array(0));
+      const fileContent = await utils.getFileContent();
+      await vscode.workspace.fs.writeFile(fileUri, fileContent);
       return fileUri;
     }
   }
@@ -78,7 +80,7 @@ class CreateScratch {
     await this.createFolder();
     let newFile = await this.createFile({ fileName: fileName });
 
-    await utils.openFile({ filePath: newFile, isNewFile: true });
+    await utils.openFile({ filePath: newFile });
     return;
   }
 }

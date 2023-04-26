@@ -6,6 +6,8 @@ const GLOBAL_SCRATCH_ENABLED = false;
 const GLOBAL_DEFAULT_SCRATCH_FOLDER_NAME = "scratch";
 const GLOBAL_DEFAULT_SCRATCH_FILE_NAME = "scratch";
 
+const AUTO_PASTE_ENABLED = true;
+
 const VALID_FILENAME_REGEX = "^[a-zA-Z]{1}[a-zA-Z\\d\\-\\_]+$";
 
 module.exports = {
@@ -15,5 +17,6 @@ module.exports = {
   GLOBAL_SCRATCH_ENABLED,
   GLOBAL_DEFAULT_SCRATCH_FOLDER_NAME,
   GLOBAL_DEFAULT_SCRATCH_FILE_NAME,
+  AUTO_PASTE_ENABLED,
   VALID_FILENAME_REGEX
 };
