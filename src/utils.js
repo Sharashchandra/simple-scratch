@@ -18,6 +18,16 @@ async function checkIfGlobalScratchEnabled() {
   return isGlobalEnabled;
 }
 
+async function checkIfAutoPasteEnabled() {
+  const config = getConfiguration();
+  const autoPasteEnabled = config.get(
+    "enableAutoPaste",
+    constants.AUTO_PASTE_ENABLED
+  );
+  console.log(`autoPasteEnabled: ${autoPasteEnabled}`);
+  return autoPasteEnabled;
+}
+
 // Get Scratch Base Folder Paths
 async function getWorkspaceRoot() {
   const workspace = await vscode.workspace.workspaceFolders;
@@ -34,7 +44,7 @@ function getGlobalFolderPath({ context }) {
 }
 
 // Get Scratch File/Folder Names
-async function getDefaultFileName() {
+async function getDefaultFileName({ scratchUri }) {
   const config = getConfiguration();
   const isGlobal = await checkIfGlobalScratchEnabled();
   let defaultFileName;
@@ -51,8 +61,8 @@ async function getDefaultFileName() {
   }
   let allFiles;
   try {
-    allFiles = await listFiles();
-  } catch (err) { }
+    allFiles = await listFiles({ scratchUri: scratchUri });
+  } catch (err) { console.log(err); }
   if (allFiles !== undefined && allFiles.length > 0) {
     defaultFileName = `${defaultFileName}${allFiles.length.toString()}`;
   }
@@ -139,16 +149,11 @@ async function checkIfFileExists(uri) {
 }
 
 // Util to open file
-async function openFile({ filePath, isNewFile = false }) {
+async function openFile({ filePath }) {
   console.log(`Opening file: ${filePath}`);
   let document;
-  if (isNewFile) {
-    document = await vscode.workspace.openTextDocument(
-      filePath.with({ scheme: "untitled" })
-    );
-  } else {
-    document = await vscode.workspace.openTextDocument(filePath);
-  }
+  document = await vscode.workspace.openTextDocument(filePath);
+
   vscode.window.showTextDocument(document);
   return;
 }
@@ -165,6 +170,18 @@ async function listFiles({ scratchUri }) {
   return fileNames;
 }
 
+// Util to get the conten
+async function getFileContent() {
+  const autoPasteEnabled = await checkIfAutoPasteEnabled()
+  if (autoPasteEnabled) {
+    let clipboardContent = await vscode.env.clipboard.readText();
+    return new TextEncoder().encode(clipboardContent);
+  }
+  else {
+    return new Uint8Array(0);
+  }
+}
+
 module.exports = {
   getWorkspaceRoot,
   getScratchPath,
@@ -172,5 +189,6 @@ module.exports = {
   openFile,
   getLanguageMap,
   getDefaultFileName,
-  listFiles
+  listFiles,
+  getFileContent
 };

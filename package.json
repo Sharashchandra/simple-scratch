@@ -2,7 +2,7 @@
   "name": "simple-scratch",
   "displayName": "Simple Scratch",
   "description": "A simple vscode extension to manage scratch files in the current workspace",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "SharashchandraDesai",
   "engines": {
     "vscode": "^1.75.0"
@@ -50,7 +50,7 @@
         },
         "simple-scratch.enableGlobalScratch": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "description": "Toggle to enable/disable global scratch files"
         },
         "simple-scratch.globalScratchFolderName": {
@@ -62,6 +62,11 @@
           "type": "string",
           "default": "scratch",
           "description": "The default file name of the global scratch files"
+        },
+        "simple-scratch.enableAutoPaste": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto paste clipboard content"
         }
       }
     }
