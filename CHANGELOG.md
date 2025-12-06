@@ -4,7 +4,7 @@
 
 ## [1.0.1]
 
-- Fixed issue [#4](https://github.com/Sharashchandra/simple-scratch/issues/4)  
+- Fixed issue [#4](https://github.com/Sharashchandra/simple-scratch/issues/4)
 - Fixed the issue where the supported languages list on Windows only included a few languages.
 
 ## [1.0.2]
@@ -19,3 +19,8 @@
 
 - Changed default value of enableGlobalScratch to true
 - Added functionality to auto paste from clipboard
+
+## [1.1.0]
+
+- Fixed path handling issues on Windows
+- Added new configuration `simple-scratch.scratchFolderPath` to specify a custom path relative to the workspace root for the scratch folder
