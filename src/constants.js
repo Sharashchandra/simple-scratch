@@ -1,4 +1,5 @@
 const APP_NAME = "simple-scratch";
+const DEFAULT_SCRATCH_FOLDER_PATH = null;
 const DEFAULT_SCRATCH_FOLDER_NAME = "scratch";
 const DEFAULT_SCRATCH_FILE_NAME = "scratch";
 
@@ -12,6 +13,7 @@ const VALID_FILENAME_REGEX = "^[a-zA-Z]{1}[a-zA-Z\\d\\-\\_]+$";
 
 module.exports = {
   APP_NAME,
+  DEFAULT_SCRATCH_FOLDER_PATH,
   DEFAULT_SCRATCH_FOLDER_NAME,
   DEFAULT_SCRATCH_FILE_NAME,
   GLOBAL_SCRATCH_ENABLED,
