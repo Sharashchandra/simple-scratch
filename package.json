@@ -38,6 +38,14 @@
     "configuration": {
       "title": "Simple Scratch",
       "properties": {
+        "simple-scratch.scratchFolderPath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null,
+          "description": "The path to the scratch folder relative to the workspace root"
+        },
         "simple-scratch.scratchFolderName": {
           "type": "string",
           "default": "scratch",

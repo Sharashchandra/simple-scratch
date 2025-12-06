@@ -89,6 +89,13 @@ function getScratchFolderName({ global }) {
   return scratchFolderName;
 }
 
+function getScratchFolderPath() {
+  let config = getConfiguration();
+  let scratchFolderPath = config.get("scratchFolderPath", null);
+  console.log(`scratchFolderPath: ${scratchFolderPath}`);
+  return scratchFolderPath;
+}
+
 // Get full scratch paths
 async function getWorkspaceScratchPath() {
   let workspaceRoot = await getWorkspaceRoot();
@@ -96,8 +103,18 @@ async function getWorkspaceScratchPath() {
     vscode.window.showErrorMessage("No workspace folder open. Please open a folder first.");
     return;
   }
+
+  // Check if custom scratchFolderPath is set
+  let scratchFolderPath = getScratchFolderPath();
   let scratchFolderName = getScratchFolderName({ global: false });
-  let scratchPath = path.join(workspaceRoot, scratchFolderName);
+  let scratchPath;
+
+  if (scratchFolderPath) {
+    scratchPath = path.join(workspaceRoot, scratchFolderPath, scratchFolderName);
+  } else {
+    scratchPath = path.join(workspaceRoot, scratchFolderName);
+  }
+
   let scratchUri = vscode.Uri.file(scratchPath);
   console.log(`Scratch Uri: ${scratchUri.fsPath}`);
   return scratchUri;
