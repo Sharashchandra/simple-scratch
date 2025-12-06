@@ -66,7 +66,11 @@ class CreateScratch {
   }
 
   async newScratch() {
-    await this.getScratchUri();
+    let scratchUri = await this.getScratchUri();
+    if (scratchUri === undefined) {
+      return;
+    }
+
     let fileExtension = await this.getFileExtension();
     if (fileExtension === undefined) {
       return;

@@ -23,13 +23,13 @@ class ModifyScratch {
       });
     } catch (err) {
       vscode.window.showErrorMessage(
-        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
+        "There are no scratch files in this workspace, check simple-scratch.scratchFolderPath and simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
       );
       return;
     }
     if (!allFiles || allFiles.length == 0) {
       vscode.window.showErrorMessage(
-        "There are no scratch files in this workspace, check the simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
+        "There are no scratch files in this workspace, check simple-scratch.scratchFolderPath and simple-scratch.scratchFolderName or simple-scratch.globalScratchFolderName value"
       );
       return;
     }
