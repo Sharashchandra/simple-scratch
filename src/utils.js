@@ -1,4 +1,5 @@
 const vscode = require("vscode");
+const path = require("path");
 const constants = require("./constants.js");
 let languageMap = require("language-map");
 
@@ -40,7 +41,7 @@ async function getWorkspaceRoot() {
 }
 
 function getGlobalFolderPath({ context }) {
-  return context.globalStorageUri.path.toString();
+  return context.globalStorageUri.fsPath;
 }
 
 // Get Scratch File/Folder Names
@@ -91,17 +92,23 @@ function getScratchFolderName({ global }) {
 // Get full scratch paths
 async function getWorkspaceScratchPath() {
   let workspaceRoot = await getWorkspaceRoot();
+  if (!workspaceRoot) {
+    vscode.window.showErrorMessage("No workspace folder open. Please open a folder first.");
+    return;
+  }
   let scratchFolderName = getScratchFolderName({ global: false });
-  let scratchUri = vscode.Uri.parse(`${workspaceRoot}/${scratchFolderName}`);
-  console.log(`Scratch Uri: ${scratchUri.path.toString()}`);
+  let scratchPath = path.join(workspaceRoot, scratchFolderName);
+  let scratchUri = vscode.Uri.file(scratchPath);
+  console.log(`Scratch Uri: ${scratchUri.fsPath}`);
   return scratchUri;
 }
 
 function getGlobalScratchPath({ context }) {
   let globalFolderPath = getGlobalFolderPath({ context: context });
   let scratchFolderName = getScratchFolderName({ global: true });
-  let scratchUri = vscode.Uri.parse(`${globalFolderPath}/${scratchFolderName}`);
-  console.log(`Scratch Uri: ${scratchUri.path.toString()}`);
+  let scratchPath = path.join(globalFolderPath, scratchFolderName);
+  let scratchUri = vscode.Uri.file(scratchPath);
+  console.log(`Scratch Uri: ${scratchUri.fsPath}`);
   return scratchUri;
 }
 
